@@ -1,0 +1,34 @@
+﻿@model SistemKasir.ViewModels.AddMoreProdukViewModel
+@{
+    Layout = null;
+}
+@using SistemKasir;
+@{
+    //BeginCollectionItemCore already created in HtmlHelper.cs class
+}
+
+@using (Html.BeginCollectionItem("AddMoreProdukList"))
+{
+    <!-------"AddMoreList"----- this is AddMoreViewModel List Object wich is define ViewModel file -->
+    <div id="removeAddMoreDiv" class="col-xs-12 col-sm-12 form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <input asp-for="FirstName" placeholder="First Name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <input asp-for="LastName" placeholder="First Name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-danger btn-sm removeDiv">
+                    Remove
+                </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+}
+<script>
+    $(".removeDiv").click(function() {
+        $(this).parents("#removeAddMoreDiv").remove();
+    });
+</script>

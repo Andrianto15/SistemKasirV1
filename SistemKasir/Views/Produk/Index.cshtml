@@ -1,0 +1,101 @@
+﻿@*@model IEnumerable<SistemKasir.Models.Produk>*@
+@model IEnumerable<SistemKasir.ViewModels.ProdukViewModel>
+
+@{
+    ViewData["Title"] = "Daftar Produk";
+}
+
+<div class="text-end">
+    <h1>Daftar Produk</h1>
+</div>
+<hr />
+
+<p>
+    <a class="btn btn-custom" asp-action="Create">Tambah Produk</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead class="text-center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NamaProduk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeskripsiProduk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kategori)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Harga)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stok)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamaProduk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeskripsiProduk)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kategori)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Harga)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stok)
+                </td>
+                @{
+                    if (item.Status == true)
+                    {
+                            <td class="text-center">Aktif</td>
+                    }
+                    else
+                    {
+                            <td class="text-center">Tidak Aktif</td>
+                    }
+                }
+                <td class="text-center">
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.IdProduk">Edit</a> |
+                    @*<a asp-action="Details" asp-route-id="@item.IdProduk">Details</a> |*@
+                    @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdProduk">Delete</a>*@
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProdukModal" data-bs-paramid="@item.IdProduk" data-bs-paramvalue="@item.DeskripsiProduk">Hapus</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Delete Modal -->
+<form asp-action="Delete" id="deleteProdukForm">
+    <div class="modal fade" id="deleteProdukModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Hapus Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" />
+                    <label class="col-form-label">Apakah Anda yakin akan menghapus produk </label>
+                    <strong><span id="descriptionValue"></span></strong> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="button" class="btn btn-danger" id="modalDeleteProdukButton">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

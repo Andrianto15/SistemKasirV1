@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+@*
+<div class="table">
+    <table class="table table-bordered table-hover">
+        <thead class="text-center">
+            <tr>
+                @{
+                    foreach (var head in TableHeaders)
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var data in Model)
+                    {
+                        <tr>
+                            <td>@data.NamaProduk</td>
+                            <td>@data.DeskripsiProduk</td>
+                            <td>@data.Harga</td>
+                            <td>@data.Stok</td>
+                            <td>@data.Status</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>*@

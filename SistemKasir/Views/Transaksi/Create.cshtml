@@ -1,0 +1,94 @@
+﻿@model SistemKasir.Models.Transaksi
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="text-end">
+    <h1>Tambah Transaksi</h1>
+</div>
+
+<hr />
+<div class="row justify-content-center">
+    <form id="createTransaksiForm" asp-action="Create">
+        <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-2">
+                        <label asp-for="IdTransaksi" class="control-label fw-bold"></label>
+                        <input asp-for="IdTransaksi" class="form-control" readonly />
+                        <span asp-validation-for="IdTransaksi" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-2">
+                        <label asp-for="TotalHargaTransaksi" class="control-label fw-bold"></label>
+                        <input asp-for="TotalHargaTransaksi" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <table id="detailTransaksiTable" class="table table-sm customDetailTransaksiTable">
+                <thead class="text-center">
+                    <tr>
+                        <th width="30%">Produk</th>
+                        <th width="20%">Harga</th>
+                        <th width="15%">Jumlah</th>
+                        <th width="15%">Total</th>
+                        <th width="10%">
+                            <button id="addBtnProduk" type="button" class="btn btn-sm form-control btn-secondary" onclick="AddItem(this)">
+                                Tambah
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.DetailTransaksi.Count; i++)
+                    {
+                        <tr>
+                            <td width="30%">
+                                @Html.DropDownListFor(x => x.DetailTransaksi[i].IdProduk, new SelectList(ViewBag.ListProduk, "Value", "Text"), htmlAttributes : new { @class = "form-select" })
+                            </td>
+                            <td width="20%">
+                                @Html.EditorFor(x => x.DetailTransaksi[i].Harga, new { htmlAttributes = new { @class = "form-control hargaProduk", @min = "0" }})
+                            </td>
+                            <td width="15%">
+                                <input type="hidden" asp-for="@Model.DetailTransaksi[i].IsDeleted" />
+                                @Html.EditorFor(x => x.DetailTransaksi[i].Jumlah, new { htmlAttributes = new { @class = "form-control", @min = "0" }})
+                                <span asp-validation-for="@Model.DetailTransaksi[i].Jumlah" class="text-danger"></span>
+                            </td>
+                            <td width="15%">
+
+                            </td>
+                            <td width="10%">
+                                <button id="deleteBtn-@i" type="button" class="btn btn-sm form-control btn-danger" onclick="DeleteItem(this)">
+                                    Hapus
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <input type="hidden" id="hdnLastIndex" value="0" />
+        </div>
+        <div class="text-center">
+            <div class="col-md-4 btn-group">
+                <div class="col-md-6 form-group p-2">
+                    <input type="submit" value="Simpan" class="btn btn-custom form-control" />
+                </div>
+                <div class="col-md-6 form-group p-2">
+                    <a class="btn btn-outline-secondary form-control" asp-action="Index">Kembali</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

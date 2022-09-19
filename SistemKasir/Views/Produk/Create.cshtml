@@ -1,0 +1,71 @@
+﻿@model SistemKasir.Models.Produk
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="text-end">
+    <h1>Tambah Produk</h1>
+</div>
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*            <div class="form-group mb-2">
+            <label asp-for="IdProduk" class="control-label"></label>
+            <input asp-for="IdProduk" class="form-control" />
+            <span asp-validation-for="IdProduk" class="text-danger"></span>
+            </div>*@
+            <div class="form-group mb-2">
+                <label asp-for="IdKategori" class="control-label"></label>
+                <select asp-for="IdKategori" class="form-select" asp-items="ViewBag.IdKategori"></select>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="NamaProduk" class="control-label"></label>
+                <input asp-for="NamaProduk" class="form-control" />
+                <span asp-validation-for="NamaProduk" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="DeskripsiProduk" class="control-label"></label>
+                <textarea asp-for="DeskripsiProduk" class="form-control"></textarea>
+                <span asp-validation-for="DeskripsiProduk" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <div class="col-md-6">
+                    <label asp-for="Harga" class="control-label"></label>
+                    <input type="number" asp-for="Harga" class="form-control" width="50%" min="0" />
+                    <span asp-validation-for="Harga" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="col-md-6">
+                    <label asp-for="Stok" class="control-label"></label>
+                    <input asp-for="Stok" class="form-control" min="0" />
+                    <span asp-validation-for="Stok" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-select">
+                    <option value="true">Aktif</option>
+                    <option value="false">Tidak Aktif</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Tambah" class="btn btn-custom form-control" />
+            </div>
+            <div class="form-group mt-2">
+                <a class="btn btn-outline-secondary form-control" asp-action="Index">Kembali</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -1,0 +1,69 @@
+﻿@model SistemKasir.Models.User
+
+@{
+    ViewData["Title"] = "Edit";
+
+    var roleData = new List<String>()
+    {
+        "Super Admin",
+        "Admin",
+        "User",
+        "Lainnya"
+    };
+
+    var roleSelectList = new SelectList(roleData);
+}
+
+<div class="text-end">
+    <h1>Edit User</h1>
+</div>
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdUser" />
+            <div class="form-group mb-2">
+                <label asp-for="NamaUser" class="control-label"></label>
+                <input asp-for="NamaUser" class="form-control" />
+                <span asp-validation-for="NamaUser" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class="form-select" asp-items="@roleSelectList"></select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-select">
+                    <option value="true">Aktif</option>
+                    <option value="false">Tidak Aktif</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Simpan" class="btn btn-custom form-control" />
+            </div>
+            <div class="form-group mt-2">
+                <a class="btn btn-outline-secondary form-control" asp-action="Index">Kembali</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

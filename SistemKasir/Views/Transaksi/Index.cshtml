@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SistemKasir.ViewModels.TransaksiViewModel>
+
+@{
+    ViewData["Title"] = "Daftar Transaksi";
+}
+
+<div class="text-end">
+    <h1>Daftar Transaksi</h1>
+</div>
+
+<hr />
+<p>
+    <a class="btn btn-custom" asp-action="Create">Tambah Transaksi</a>
+</p>
+<table class="table table-bordered table-hover text-center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdTransaksi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NamaUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TglTransaksi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalHargaTransaksi)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdTransaksi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamaUser)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TglTransaksi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalHargaTransaksi)
+                </td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.IdTransaksi">Edit</a> |
+                    <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.IdTransaksi">Details</a> |
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteTransaksiModal" data-bs-paramid="@item.IdTransaksi" data-bs-paramvalue="@item.IdTransaksi">Hapus</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Delete Modal -->
+<form asp-action="Delete" id="deleteTransaksiForm">
+    <div class="modal fade" id="deleteTransaksiModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Hapus Transaksi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" />
+                    <label class="col-form-label">Apakah Anda yakin akan menghapus transaksi </label>
+                    <strong><span id="descriptionValue"></span></strong> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="button" class="btn btn-danger" id="modalDeleteTransaksiButton">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,68 @@
+﻿@model SistemKasir.Models.Produk
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="text-end">
+    <h1>Edit Produk</h1>
+</div>
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdProduk" />
+            <div class="form-group mb-2">
+                <label asp-for="IdKategori" class="control-label"></label>
+                <select asp-for="IdKategori" class="form-select" asp-items="ViewBag.IdKategori"></select>
+                <span asp-validation-for="IdKategori" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="NamaProduk" class="control-label"></label>
+                <input asp-for="NamaProduk" class="form-control" />
+                <span asp-validation-for="NamaProduk" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="DeskripsiProduk" class="control-label"></label>
+                <input asp-for="DeskripsiProduk" class="form-control" />
+                <span asp-validation-for="DeskripsiProduk" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <div class="col-md-6">
+                    <label asp-for="Harga" class="control-label"></label>
+                    <input type="number" asp-for="Harga" class="form-control" min="0" />
+                    <span asp-validation-for="Harga" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <div class="col-md-6">
+                    <label asp-for="Stok" class="control-label"></label>
+                    <input type="number" asp-for="Stok" class="form-control" min="0" />
+                    <span asp-validation-for="Stok" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-select">
+                    <option value="true">Aktif</option>
+                    <option value="false">Tidak Aktif</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4">
+                <input type="submit" value="Simpan" class="btn btn-custom form-control" />
+            </div>
+            <div class="form-group mt-2">
+                <a class="btn btn-outline-secondary form-control" asp-action="Index">Kembali</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

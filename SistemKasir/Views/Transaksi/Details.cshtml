@@ -1,0 +1,101 @@
+﻿@model SistemKasir.ViewModels.TransaksiViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+    }
+</style>
+
+<div class="text-end">
+    <h1>Detail Transaksi</h1>
+</div>
+
+<hr />
+<div class="row justify-content-center">
+    <form asp-action="Create">
+        <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="IdTransaksi" class="control-label fw-bold"></label>
+                        <input asp-for="IdTransaksi" class="form-control-plaintext" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="TglTransaksi" class="control-label fw-bold"></label>
+                        <input type="text" asp-for="TglTransaksi" class="form-control-plaintext" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="NamaUser" class="control-label fw-bold"></label>
+                        <input asp-for="NamaUser" class="form-control-plaintext" readonly />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group mb-2">
+                        <label asp-for="TotalHargaTransaksi" class="control-label fw-bold"></label>
+                        <input asp-for="TotalHargaTransaksi" class="form-control-plaintext" readonly />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 pt-2">
+            <table id="detailTransaksiTable" class="table table-bordered table-striped">
+                <thead class="text-center">
+                    <tr>
+                        <th>Kategori</th>
+                        <th width="30%">Produk</th>
+                        <th width="20%">Harga</th>
+                        <th width="15%">Jumlah</th>
+                        <th width="20%">Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.DetailTransaksi.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => x.DetailTransaksi[i].NamaKategori, new { htmlAttributes = new { @class = "form-select" }})
+                            </td>
+                            <td width="30%">
+                                @Html.DisplayFor(x => x.DetailTransaksi[i].NamaProduk, new { htmlAttributes = new { @class = "form-select" }})
+                            </td>
+                            <td width="20%">
+                                @Html.DisplayFor(x => x.DetailTransaksi[i].Harga, new { htmlAttributes = new { @class = "form-control" }})
+                            </td>
+                            <td width="15%">
+                                @Html.DisplayFor(x => x.DetailTransaksi[i].Jumlah, new { htmlAttributes = new { @class = "form-control" }})
+                            </td>
+                            <td width="20%">
+                                @Html.DisplayFor(x => x.DetailTransaksi[i].TotalHarga, new { htmlAttributes = new { @class = "form-control" }})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <input type="hidden" id="hdnLastIndex" value="0" />
+        </div>
+        <div class="flex-end">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <a class="btn btn-outline-secondary form-control" asp-action="Index">Kembali</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

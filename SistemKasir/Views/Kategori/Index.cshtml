@@ -1,0 +1,83 @@
+﻿@model IEnumerable<SistemKasir.Models.Kategori>
+
+@{
+    ViewData["Title"] = "Daftar Kategori";
+}
+
+<div class="text-end">
+    <h1>Daftar Kategori</h1>
+</div>
+
+<hr />
+<p>
+    <a class="btn btn-custom" asp-action="Create">Tambah Kategori</a>
+</p>
+<table class="table table-bordered table-hover">
+    <thead class="text-center">
+        <tr>
+            @*            <th>
+            @Html.DisplayNameFor(model => model.IdKategori)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Deskripsi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*                <td class="text-center">
+            @Html.DisplayFor(modelItem => item.IdKategori)
+            </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deskripsi)
+                </td>
+                @*@Html.DisplayFor(modelItem => item.Status)*@
+                @{
+                    if (item.Status == true)
+                    {
+                        <td class="text-center">Aktif</td>
+                    }
+                    else
+                    {
+                        <td class="text-center">Tidak Aktif</td>
+                    }
+                }
+                <td class="text-center">
+                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.IdKategori">Edit</a> |
+                    @*<a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.IdKategori">Details</a> |*@
+                    @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.IdKategori">Hapus</a>*@
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteKategoriModal" data-bs-paramid="@item.IdKategori" data-bs-paramvalue="@item.Deskripsi">Hapus</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Delete Modal -->
+<form asp-action="Delete" id="deleteKategoriForm">
+    <div class="modal fade" id="deleteKategoriModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Hapus Kategori</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" />
+                    <label class="col-form-label">Apakah Anda yakin akan menghapus kategori </label>
+                    <strong><span id="descriptionValue"></span></strong> ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="button" class="btn btn-danger" id="modalDeleteKategoriButton">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
